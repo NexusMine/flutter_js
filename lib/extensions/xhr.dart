@@ -326,6 +326,10 @@ extension JavascriptRuntimeXhrExtension on JavascriptRuntime {
         try {
           responseText = jsonEncode(json.decode(responseText));
         } on Exception {}
+
+        // workaround
+        responseText = responseText.replaceAll("\\\"", '＂');
+
         final xhrResult = XmlHttpRequestResponse(
           responseText: responseText,
           responseInfo:
