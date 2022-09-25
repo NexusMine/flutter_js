@@ -323,9 +323,6 @@ extension JavascriptRuntimeXhrExtension on JavascriptRuntime {
         }
         // assuming request was successfully executed
         String responseText = utf8.decode(response.bodyBytes);
-        try {
-          responseText = jsonEncode(json.decode(responseText));
-        } on Exception {}
 
         // workaround
         responseText = responseText.replaceAll("\\\"", '＂');
