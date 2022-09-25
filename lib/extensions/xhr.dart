@@ -330,7 +330,7 @@ extension JavascriptRuntimeXhrExtension on JavascriptRuntime {
         final xhrResult = XmlHttpRequestResponse(
           responseText: responseText,
           responseInfo:
-              XhtmlHttpResponseInfo(statusCode: 200, statusText: "OK"),
+              XhtmlHttpResponseInfo(statusCode: response.statusCode, statusText: "OK"),
         );
 
         final responseInfo = jsonEncode(xhrResult.responseInfo);
