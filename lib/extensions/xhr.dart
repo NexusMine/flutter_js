@@ -342,8 +342,11 @@ extension JavascriptRuntimeXhrExtension on JavascriptRuntime {
         // send back to the javascript environment the
         // response for the http pending callback
         final xhrEvalCallback = this.evaluate(
-          "globalThis.xhrRequests[${pendingCall.idRequest}].callback($responseInfo, `$responseText`, $error);",
+          "globalThis.xhrRequests[${pendingCall.idRequest}].callback($responseInfo, '${responseText.replaceAll("'", "\\'")}', $error);",
         );
+        if (xhrEvalCallback.isError) {
+          throw xhrEvalCallback.stringResult;
+        }
       });
     });
 
