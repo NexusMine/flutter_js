@@ -36,7 +36,7 @@ class JavascriptCoreRuntime extends JavascriptRuntime {
 
     context = JSContext(_globalContext);
 
-    _sendMessageDartFunc = _sendMessage;
+    _sendMessageDartFuncMap[_globalContext.address] = _sendMessage;
 
     Pointer<Utf8> funcNameCString = 'sendMessage'.toNativeUtf8();
     var functionObject = jSObjectMakeFunctionWithCallback(
@@ -125,8 +125,8 @@ class JavascriptCoreRuntime extends JavascriptRuntime {
       int argumentCount,
       Pointer<Pointer> arguments,
       Pointer<Pointer> exception) {
-    if (_sendMessageDartFunc != null) {
-      return _sendMessageDartFunc!(
+    if (_sendMessageDartFuncMap[ctx.address] != null) {
+      return _sendMessageDartFuncMap[ctx.address]!(
           ctx, function, thisObject, argumentCount, arguments, exception);
     }
     return nullptr;
@@ -153,7 +153,7 @@ class JavascriptCoreRuntime extends JavascriptRuntime {
     return result;
   }
 
-  static jsObject.JSObjectCallAsFunctionCallbackDart? _sendMessageDartFunc;
+  static Map<int, jsObject.JSObjectCallAsFunctionCallbackDart> _sendMessageDartFuncMap = {};
 
   Pointer _sendMessage(
       Pointer ctx,
