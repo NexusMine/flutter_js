@@ -265,7 +265,7 @@ class JavascriptCoreRuntime extends JavascriptRuntime {
   @override
   String jsonStringify(JsEvalResult jsValue) {
     JSValue objValue = JSValuePointer(jsValue.rawResult).getValue(context);
-    return objValue.createJSONString().string!;
+    return objValue.string!;
   }
 
   @override
