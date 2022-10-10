@@ -88,6 +88,10 @@ abstract class JavascriptRuntime {
 
   String jsonStringify(JsEvalResult jsValue);
 
+  Future<String> jsonStringifyAsync(JsEvalResult jsValue) {
+    return Future.value(jsonStringify(jsValue));
+  }
+
   @protected
   void initChannelFunctions();
 

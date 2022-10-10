@@ -260,6 +260,12 @@ class QuickJsRuntime2 extends JavascriptRuntime {
   }
 
   @override
+  Future<String> jsonStringifyAsync(JsEvalResult jsValue) async {
+    final json = await (jsValue.rawResult as Future<dynamic>);
+    return jsonEncode(json);
+  }
+
+  @override
   bool setupBridge(String channelName, void Function(dynamic args) fn) {
     final channelFunctionCallbacks =
         JavascriptRuntime.channelFunctionsRegistered[getEngineInstanceId()]!;
